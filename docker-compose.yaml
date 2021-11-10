@@ -54,7 +54,7 @@ services:
       - /root/docker/sonarqube/temp:/opt/sonarqube/temp
       
   db:
-    image: postgresql
+    image: postgres
     restart: always
     expose:
       - "5432"
