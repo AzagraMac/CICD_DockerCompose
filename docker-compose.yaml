@@ -12,7 +12,7 @@ services:
     environment: 
       TZ: Europe/Madrid
     volumes:
-      - /home/$USER/docker_data/jenkins/:/var/jenkins_home
+      - /root/docker/jenkins/:/var/jenkins_home
       - /usr/local/bin/docker:/usr/local/bin/docker
       - /var/run/socker.sock:/var/run/docker.sock
     networks:
@@ -27,12 +27,12 @@ services:
     environment: 
       TZ: Europe/Madrid
     volumes:
-      - "/home/$USER/docker_data/nexus:/nexus-data"
+      - /root/docker/nexus:/nexus-data
     networks:
       - cicd_network
 
   sonarqube:
-    image: "sonarqube:8.2-community"
+    image: "sonarqube:8.7.0-community"
     restart: always
     container_name: sonarqube
     expose:
@@ -48,10 +48,10 @@ services:
       SONAR_JDBC_USERNAME: sonar
       SONAR_JDBC_PASSWORD: sonar
     volumes:
-      - /home/$USER/docker_data/sonarqube/data:/opt/sonarqube/data
-      - /home/$USER/docker_data/sonarqube/extensions:/opt/sonarqube/extensions
-      - /home/$USER/docker_data/sonarqube/logs:/opt/sonarqube/logs
-      - /home/$USER/docker_data/sonarqube/temp:/opt/sonarqube/temp
+      - /root/docker/sonarqube/data:/opt/sonarqube/data
+      - /root/docker/sonarqube/extensions:/opt/sonarqube/extensions
+      - /root/docker/sonarqube/logs:/opt/sonarqube/logs
+      - /root/docker/sonarqube/temp:/opt/sonarqube/temp
       
   db:
     image: postgresql
@@ -66,7 +66,7 @@ services:
       POSTGRES_USER: sonar
       POSTGRES_PASSWORD: sonar
     volumes:
-      - /home/$USER/docker_data/postgresql:/var/lib/postgresql
+      - /root/docker/postgresql:/var/lib/postgresql
 
   jira-server:
       image: 'atlassian/jira-software'
@@ -89,4 +89,3 @@ services:
 networks:
   cicd_network:
     driver: bridge
-      
